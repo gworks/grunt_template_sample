@@ -25,6 +25,9 @@ module.exports = (grunt) ->
           "<%= dest_dir %>index.html" : "<%= src_dir %>index.html"
           "<%= dest_dir %>child/sample.html" : "<%= src_dir %>child/sample.html"
 
+    jshint:
+      beforeconcat: "<%= src_dir %>js/**/*_userscript.js"
+
     uglify:
       options:
         banner: "/* <%= pkg_name %> <%= grunt.template.today('yyyy-mm-dd') %> */\n"
@@ -58,7 +61,7 @@ module.exports = (grunt) ->
 
       js_files:
         files: "<%= src_dir %>js/**/*.js"
-        tasks: "uglify"
+        tasks: ["jshint","uglify"]
 
     connect:
       site:
@@ -70,6 +73,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks "grunt-contrib-uglify"
   grunt.loadNpmTasks "grunt-contrib-cssmin"
   grunt.loadNpmTasks "grunt-contrib-htmlmin"
+  grunt.loadNpmTasks "grunt-contrib-jshint"
   grunt.loadNpmTasks "grunt-contrib-watch"
   grunt.loadNpmTasks "grunt-contrib-connect"
 
